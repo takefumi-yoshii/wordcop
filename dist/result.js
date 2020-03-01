@@ -2,10 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 // ______________________________________________________
 //
-function result(diagnostics, config) {
-    if (diagnostics.aggregate.coverage < config.errorThrethold) {
-        throw new Error('🚨 wordcop: Error! TypeSafe coverage under threthold.🚨');
+function result(diagnostics) {
+    if (diagnostics.allDiagnostics.length) {
+        throw new Error('🚨 wordcop: Error! Found violation.🚨');
     }
-    console.log('wordcop: Your project is type safety. ✅');
+    console.log('wordcop: No violations found. ✅');
 }
 exports.result = result;

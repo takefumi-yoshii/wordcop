@@ -2,11 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 // ______________________________________________________
 //
-function reporter(diagnostics, coverageTabele, config) {
+function reporter(diagnostics, config) {
     if (!!config.customReporter) {
         config.customReporter(diagnostics);
         return;
     }
-    console.log(coverageTabele);
 }
 exports.reporter = reporter;

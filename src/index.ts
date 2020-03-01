@@ -4,8 +4,8 @@ import { Config } from './types'
 import { createConfig, defaultConfig } from './config'
 import { removeUndefined } from './arrayFilters'
 import { createProgram } from './createProgram'
-import { getAnyDiagnostics } from './getAnyDiagnostics'
-import { getCoverageTable } from './getCoverageTable'
+import { getTypeRegExpChecker } from './getTypeRegExpChecker'
+import { getTypeCheckDiagnostics } from './getTypeCheckDiagnostics'
 import { result } from './result'
 import { emitter } from './emitter'
 import { reporter } from './reporter'
@@ -20,11 +20,15 @@ export function run(config: Config) {
     .map(fileName => program.getSourceFile(fileName))
     .filter(removeUndefined)
   if (sources.length) {
-    const diagnostics = getAnyDiagnostics(checker, sources)
-    const coverageTabele = getCoverageTable(diagnostics)
+    const typeRegExpChecker = getTypeRegExpChecker(config.regExpChecker)
+    const diagnostics = getTypeCheckDiagnostics(
+      checker,
+      typeRegExpChecker,
+      sources
+    )
     emitter(diagnostics, config)
-    reporter(diagnostics, coverageTabele, config)
-    result(diagnostics, config)
+    reporter(diagnostics, config)
+    result(diagnostics)
   }
 }
 if (process.env.NODE_ENV === 'development') {

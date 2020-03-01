@@ -14,9 +14,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 //_______________________________________________________
 //
 exports.defaultConfig = {
-    errorThrethold: 0,
     targetDir: '.',
     tsconfigFileName: 'tsconfig.json',
-    isEmitLog: false
+    isEmitLog: false,
+    regExpChecker: {
+        boolean: /.*$/,
+        number: /.*$/,
+        string: /.*$/,
+        array: /.*$/
+    }
 };
-exports.createConfig = function (injects) { return (__assign(__assign({}, exports.defaultConfig), injects)); };
+exports.createConfig = function (injects) { return (__assign(__assign(__assign({}, exports.defaultConfig), injects), { regExpChecker: __assign(__assign({}, exports.defaultConfig.regExpChecker), injects === null || injects === void 0 ? void 0 : injects.regExpChecker) })); };

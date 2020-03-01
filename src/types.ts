@@ -1,5 +1,5 @@
 import * as ts from 'typescript'
-import { getAnyDiagnostics } from './getAnyDiagnostics'
+import { getTypeCheckDiagnostics } from './getTypeCheckDiagnostics'
 // ______________________________________________________
 //
 export type Diagnostic = string
@@ -11,29 +11,27 @@ export type BindingFunction<T extends ts.Node = ts.Node> = (props: {
 }) => Diagnostic | undefined
 //_______________________________________________________
 //
-export type AnyDiagnostics = ReturnType<typeof getAnyDiagnostics>
-//_______________________________________________________
-//
-export type CounterItem = { totalCount: number; anyCount: number }
-export type CounterWithCoverageItem = CounterItem & { coverage: number }
-export type CounterType<T> = {
-  VariableDeclaration: T
-  ParameterDeclaration: T
-  BindingElement: T
-  FunctionDeclReturn: T
-  ArrowFunctionReturn: T
-  AsExpression: T
-}
-export type Counter = CounterType<CounterItem>
-export type CounterWithCoverage = CounterType<CounterWithCoverageItem>
+export type TypeCheckDiagnostics = ReturnType<typeof getTypeCheckDiagnostics>
 //_______________________________________________________
 //
 export type Config = {
-  errorThrethold: number
   targetDir: string
   tsconfigFileName: string
   isEmitLog: boolean
+  regExpChecker: RegExpChecker
   logFileName?: string
-  customReporter?: (anyDiagnostics: AnyDiagnostics) => unknown
+  customReporter?: (typeCheckDiagnostics: TypeCheckDiagnostics) => unknown
 }
-export type TypeCheckerConfig = Partial<Config>
+export type TypeCheckerConfig = Partial<Omit<Config, 'regExpChecker'>> & {
+  regExpChecker?: Partial<RegExpChecker>
+}
+//_______________________________________________________
+//
+export type CheckMapKeys = 'boolean' | 'number' | 'string' | 'array'
+export type RegExpChecker = { [K in CheckMapKeys]: RegExp }
+export type CheckFunction = (
+  identifier: string,
+  isArrayTypeNode: boolean,
+  node: ts.VariableDeclaration
+) => string | false
+export type TypeRegExpChecker = { [k: string]: RegExp | CheckFunction }
