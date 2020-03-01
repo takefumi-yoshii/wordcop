@@ -1,0 +1,37 @@
+{
+  "name": "wordcop",
+  "version": "1.0.0",
+  "description": "",
+  "author": "takefumi-yoshii",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/takefumi-yoshii/wordcop.git"
+  },
+  "types": "src/types.ts",
+  "scripts": {
+    "start": "node ./bin/wordcop.js",
+    "start:tsnode": "node ./bin/wordcop.js --config=src/wordcop.config/index.js",
+    "dev": "nodemon",
+    "build": "tsc",
+    "prettier": "prettier --write \"src/**/*.ts\""
+  },
+  "dependencies": {
+    "cli-table3": "^0.5.1",
+    "commander": "^4.1.1",
+    "fs-extra": "^8.1.0",
+    "typescript": "^3.8.3"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^8.1.0",
+    "@types/node": "^13.7.7",
+    "nodemon": "^2.0.2",
+    "prettier": "^1.19.1",
+    "ts-node": "^8.6.2"
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "printWidth": 80
+  }
+}

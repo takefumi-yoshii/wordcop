@@ -1,2 +1,1 @@
 # wordcop
-wordcop
