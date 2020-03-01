@@ -8,6 +8,9 @@
     "type": "git",
     "url": "git+https://github.com/takefumi-yoshii/wordcop.git"
   },
+  "bin": {
+    "wordcop": "./bin/wordcop.js"
+  },
   "types": "src/types.ts",
   "scripts": {
     "start": "node ./bin/wordcop.js",
