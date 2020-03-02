@@ -12,15 +12,15 @@ function checkNode(checker, typeRegExpChecker, node) {
     try {
         var type = checker.getTypeAtLocation(node);
         var flags = type.flags, symbol = type.symbol;
-        var checkByFunction = typeRegExpChecker[flags];
-        if (!checkByFunction)
+        var check = typeRegExpChecker[flags];
+        if (!check)
             return false;
         var identifier = node.name.getText();
-        if (typeof checkByFunction === 'function') {
+        if (typeof check === 'function') {
             var isArrayTypeNode = symbol.name === 'Array';
-            return checkByFunction(identifier, isArrayTypeNode, node);
+            return check(identifier, isArrayTypeNode, node);
         }
-        return checkByRegExp(identifier, checkByFunction);
+        return checkByRegExp(identifier, check);
     }
     catch (_a) {
         return false;

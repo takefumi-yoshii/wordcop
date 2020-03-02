@@ -15,14 +15,14 @@ export function checkNode<T extends ts.VariableDeclaration>(
   try {
     const type = checker.getTypeAtLocation(node)
     const { flags, symbol } = type
-    const checkByFunction = typeRegExpChecker[flags]
-    if (!checkByFunction) return false
+    const check = typeRegExpChecker[flags]
+    if (!check) return false
     const identifier = node.name.getText()
-    if (typeof checkByFunction === 'function') {
+    if (typeof check === 'function') {
       const isArrayTypeNode = symbol.name === 'Array'
-      return checkByFunction(identifier, isArrayTypeNode, node)
+      return check(identifier, isArrayTypeNode, node)
     }
-    return checkByRegExp(identifier, checkByFunction)
+    return checkByRegExp(identifier, check)
   } catch {
     return false
   }
