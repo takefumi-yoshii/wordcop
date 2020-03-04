@@ -13,7 +13,7 @@ export function getTypeCheckDiagnostics(
       const { diagnostics } = visitSource(checker, typeRegExpChecker, source)
       return diagnostics
     })
-    .flat()
+    .reduce((acc, val) => acc.concat(val), [])
   return {
     allDiagnostics
   }
