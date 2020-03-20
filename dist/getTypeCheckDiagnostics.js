@@ -9,7 +9,7 @@ function getTypeCheckDiagnostics(checker, typeRegExpChecker, sources) {
         var diagnostics = visitSource_1.visitSource(checker, typeRegExpChecker, source).diagnostics;
         return diagnostics;
     })
-        .flat();
+        .reduce(function (acc, val) { return acc.concat(val); }, []);
     return {
         allDiagnostics: allDiagnostics
     };
